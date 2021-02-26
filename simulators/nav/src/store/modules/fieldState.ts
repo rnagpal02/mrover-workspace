@@ -56,6 +56,7 @@ const getters = {
 
 const mutations = {
   editArTag: (fieldState:FieldState, arTagEdit:[ArTag, number]):void => {
+    console.log('edit ar tag');
     const [updatedArTag, index]:[ArTag, number] = arTagEdit;
     Object.assign(fieldState.arTags[index], updatedArTag);
 
@@ -92,6 +93,7 @@ const mutations = {
   },
 
   pushArTag: (fieldState:FieldState, newArTag:ArTag):void => {
+    console.log('push ar tag');
     fieldState.arTags.push(newArTag);
   },
 

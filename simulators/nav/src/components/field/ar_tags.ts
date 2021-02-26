@@ -75,6 +75,7 @@ export default class CanvasArTags {
     this.canvasCent = canvasCent;
     this.scale = scale;
     this.scaledPostSideLen = this.scale * POST.sideLen;
+    console.log('ar targs constructor');
   } /* constructor() */
 
   /* Draw all ar tags on the canvas. */

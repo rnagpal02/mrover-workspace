@@ -83,7 +83,7 @@ import {
   WaypointDrawOptions,
   ZedGimbalPosition
 } from '../../utils/types';
-import { canvasToOdom } from '../../utils/utils';
+import { canvasToOdom, calcRelativeOdom } from '../../utils/utils';
 import CanvasArTags from './ar_tags';
 import CanvasObstacles from './obstacles';
 import CanvasReferencePoints from './reference_points';
@@ -337,6 +337,11 @@ export default class Field extends Vue {
           odom: clickOdom,
           orientation: 0
         });
+
+        this.pushObstacle({
+          odom: clickOdom,
+          size: this.obstacleDrawOptions.size
+        });
         break;
       }
 
@@ -347,6 +352,21 @@ export default class Field extends Vue {
           odom: clickOdom,
           orientation: this.gateDrawOptions.orientation,
           width: this.gateDrawOptions.width
+        });
+
+        const lOdom:Odom = calcRelativeOdom(clickOdom, this.gateDrawOptions.orientation + 180,
+                                            this.gateDrawOptions.width / 2, this.fieldCenterOdom);
+        const rOdom:Odom = calcRelativeOdom(clickOdom, this.gateDrawOptions.orientation,
+                                            this.gateDrawOptions.width / 2, this.fieldCenterOdom);
+
+        this.pushObstacle({
+          odom: lOdom,
+          size: this.obstacleDrawOptions.size
+        });
+
+        this.pushObstacle({
+          odom: rOdom,
+          size: this.obstacleDrawOptions.size
         });
         break;
       }
